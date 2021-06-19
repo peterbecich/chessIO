@@ -8,8 +8,9 @@ import           Data.Ix          (Ix (..))
 import           Data.String      (IsString (fromString))
 import           Data.Word
 import           GHC.Stack        (HasCallStack)
+import           GHC.Generics     (Generic)
 
-newtype Rank = Rank Int deriving (Eq, Ord)
+newtype Rank = Rank Int deriving (Eq, Ord, Generic)
 
 unRank :: Rank -> Int
 unRank = coerce
@@ -51,7 +52,7 @@ pattern Rank8 = Rank 7
 
 {-# COMPLETE Rank1, Rank2, Rank3, Rank4, Rank5, Rank6, Rank7, Rank8 :: Rank #-}
 
-newtype File = File Int deriving (Eq, Ord)
+newtype File = File Int deriving (Eq, Ord, Generic)
 
 unFile :: File -> Int
 unFile = coerce
@@ -93,7 +94,7 @@ pattern FileH = File 7
 
 {-# COMPLETE FileA, FileB, FileC, FileD, FileE, FileF, FileG, FileH :: File #-}
 
-newtype Square = Sq Int deriving (Eq, Ord)
+newtype Square = Sq Int deriving (Eq, Ord, Generic)
 
 instance Ix Square where
   range (Sq i, Sq j) = [Sq k | k <- [i..j]]

@@ -60,7 +60,8 @@ startpos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 instance IsString Position where fromString = fromJust . fromFEN
 
-data PieceType = Pawn | Knight | Bishop | Rook | Queen | King deriving (Eq, Ix, Ord, Show)
+data PieceType = Pawn | Knight | Bishop | Rook | Queen | King
+  deriving (Eq, Ix, Ord, Show, Generic)
 
 data Color = Black | White deriving (Eq, Generic, Ix, Ord, Lift, Show)
 
@@ -206,7 +207,8 @@ bitScanForward, bitScanReverse :: Word64 -> Int
 bitScanForward = countTrailingZeros
 bitScanReverse = (63 -) . countLeadingZeros
 
-newtype Ply = Ply Word16 deriving (Binary, Eq, Hashable, Lift, Storable)
+newtype Ply = Ply Word16
+  deriving (Binary, Eq, Hashable, Lift, Storable, Generic)
 
 instance Show Ply where
   show (unpack -> (from, to, promo)) = "move " <> show from <> " " <> show to <> p where
